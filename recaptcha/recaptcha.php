@@ -7,9 +7,8 @@
 *   Mike Crawford
 *   Ben Maurer
 *
-* @package Plugin: reCaptcha
-* @version $Id$
-* @copyright (c) 2011 Carlo
+* @package recaptcha
+* @copyright (c) 2011, 2012 Carlo
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */
@@ -86,7 +85,7 @@ class plugin_recaptcha
 
 		if(false == ($fs = @fsockopen($host, $port, $errno, $errstr, 10)))
 		{
-			error_box('[reCaptcha] Could not open socket');
+			error_box('[reCaptcha] Could not open socket.');
 		}
 
 		fwrite($fs, $http_request);
@@ -117,7 +116,7 @@ class plugin_recaptcha
 	{
 		if ($this->public_key == null || $this->public_key == '')
 		{
-			error_box("[reCaptcha] To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
+			error_box("[reCaptcha] To use reCAPTCHA you must get an API key from <a href=\"https://www.google.com/recaptcha/admin/create\">https://www.google.com/recaptcha/admin/create</a>.");
 		}
 
 		if ($use_ssl)
@@ -159,12 +158,12 @@ class plugin_recaptcha
 	{
 		if ($this->private_key == null || $this->private_key == '')
 		{
-			error_box("[reCaptcha] To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
+			error_box("[reCaptcha] To use reCAPTCHA you must get an API key from <a href=\"https://www.google.com/recaptcha/admin/create\">https://www.google.com/recaptcha/admin/create</a>.");
 		}
 
 		if ($remoteip == null || $remoteip == '')
 		{
-			error_box("[reCaptcha] For security reasons, you must pass the remote ip to reCAPTCHA");
+			error_box("[reCaptcha] For security reasons, you must pass the remote IP to reCAPTCHA.");
 		}
 
 		# Discard spam submissions
@@ -231,7 +230,6 @@ class plugin_recaptcha
 		return mcrypt_encrypt($enc, $ky, $val, $mode, "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0");
 	}
 
-
 	function _recaptcha_mailhide_urlbase64($x)
 	{
 		return strtr(base64_encode ($x), '+/', '-_');
@@ -244,7 +242,7 @@ class plugin_recaptcha
 	{
 		if ($this->public_key == '' || $this->public_key == null || $this->private_key == "" || $this->private_key == null)
 		{
-			error_box("[reCaptcha] To use reCAPTCHA Mailhide, you have to sign up for a public and private key, you can do so at <a href='http://www.google.com/recaptcha/mailhide/apikey'>http://www.google.com/recaptcha/mailhide/apikey</a>");
+			error_box("[reCaptcha] To use reCAPTCHA Mailhide, you have to sign up for a public and private key, you can do so at <a href=\"http://www.google.com/recaptcha/mailhide/apikey\">http://www.google.com/recaptcha/mailhide/apikey</a>.");
 		}
 
 		$ky = pack('H*', $this->private_key);
@@ -292,5 +290,3 @@ class plugin_recaptcha
 		return htmlentities($emailparts[0]) . "<a href='" . htmlentities ($url) . "' onclick=\"window.open('" . htmlentities ($url) . "', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;\" title=\"Reveal this e-mail address\">...</a>@" . htmlentities ($emailparts [1]);
 	}
 }
-
-?>
